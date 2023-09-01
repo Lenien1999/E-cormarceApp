@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 import '../model/product.dart';
 import 'productdetails.dart';
 
-class BuildRecentproduct extends StatelessWidget {
+class BuildRecentproduct extends StatefulWidget {
   const BuildRecentproduct({
     super.key,
   });
 
+  @override
+  State<BuildRecentproduct> createState() => _BuildRecentproductState();
+}
+
+class _BuildRecentproductState extends State<BuildRecentproduct> {
+  
+  List<bool> cartproduct = List.generate(productList.length, (index) => false);
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

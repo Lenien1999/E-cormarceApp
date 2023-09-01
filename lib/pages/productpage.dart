@@ -109,14 +109,23 @@ class _ProductPageState extends State<ProductPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Recent product",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF393F42),
-                  ),
-                ),
+                controller.text.isEmpty
+                    ? const Text(
+                        " ",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF393F42),
+                        ),
+                      )
+                    : Text(
+                        ' Search Result for "${controller.text}"',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF393F42),
+                        ),
+                      ),
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),

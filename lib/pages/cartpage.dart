@@ -95,157 +95,156 @@ class _CartPageState extends State<CartPage> {
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   final cartproduct = widget.cartItem[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Card(
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          Checkbox(
-                              checkColor: Colors.white,
-                              activeColor: Colors.greenAccent,
-                              value: checkboxValues[index],
-                              onChanged: (value) {
-                                setState(() {
-                                  checkboxValues[index] = value!;
-                                  cartproduct.isSelected = value;
-                                });
-                              }),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                  return ListTile(
+                    leading: Checkbox(
+                        checkColor: Colors.white,
+                        activeColor: Colors.greenAccent,
+                        value: checkboxValues[index],
+                        onChanged: (value) {
+                          setState(() {
+                            checkboxValues[index] = value!;
+                            cartproduct.isSelected = value;
+                          });
+                        }),
+                    title: Row(
+                      children: [
+                        Image.asset(
+                          cartproduct.images,
+                          height: 76,
+                          width: 82,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(
-                                cartproduct.images,
-                                height: 76,
-                                width: 82,
-                                fit: BoxFit.cover,
+                              Text(
+                                cartproduct.title,
+                                style: style,
+                              ),
+                              Text(
+                                "Varient:  ${cartproduct.variant}",
+                                style: substyle,
                               ),
                               const SizedBox(
-                                width: 12,
+                                height: 15,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    cartproduct.title,
-                                    style: style,
-                                  ),
-                                  Text(
-                                    "Varient:  ${cartproduct.variant}",
-                                    style: substyle,
-                                  ),
-                                  const SizedBox(
-                                    height: 15,
-                                  ),
                                   Text(
                                     "\$ ${cartproduct.price}",
                                     style: style,
                                   ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: const Color.fromARGB(
+                                                  255, 221, 219, 219),
+                                            ),
+                                            shape: BoxShape.circle,
+                                            color: Colors.white),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              if (cartproduct.quantity > 1) {
+                                                cartproduct.quantity -= 1;
+                                                gettotalprice();
+                                              }
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Icon(
+                                              Icons.remove,
+                                              size: 16,
+                                              color: Colors.grey.shade400,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        cartproduct.quantity.toString(),
+                                        style: style,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: const Color.fromARGB(
+                                                  255, 221, 219, 219),
+                                            ),
+                                            shape: BoxShape.circle,
+                                            color: Colors.white),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              setState(() {
+                                                cartproduct.quantity += 1;
+                                                gettotalprice();
+                                              });
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 16,
+                                              color: Colors.grey.shade400,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: const Color.fromARGB(
+                                                  255, 221, 219, 219),
+                                            ),
+                                            shape: BoxShape.circle,
+                                            color: Colors.white),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              widget.cartItem
+                                                  .remove(cartproduct);
+                                              gettotalprice();
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: Icon(
+                                              Icons.delete,
+                                              size: 16,
+                                              color: Colors.grey.shade300,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: const Color.fromARGB(
-                                          255, 221, 219, 219),
-                                    ),
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (cartproduct.quantity > 1) {
-                                        cartproduct.quantity -= 1;
-                                        gettotalprice();
-                                      }
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Icon(
-                                      Icons.remove,
-                                      size: 16,
-                                      color: Colors.grey.shade400,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                cartproduct.quantity.toString(),
-                                style: style,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: const Color.fromARGB(
-                                          255, 221, 219, 219),
-                                    ),
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      setState(() {
-                                        cartproduct.quantity += 1;
-                                        gettotalprice();
-                                      });
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Icon(
-                                      Icons.add,
-                                      size: 16,
-                                      color: Colors.grey.shade400,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: const Color.fromARGB(
-                                          255, 221, 219, 219),
-                                    ),
-                                    shape: BoxShape.circle,
-                                    color: Colors.white),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      widget.cartItem.remove(cartproduct);
-                                      gettotalprice();
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Icon(
-                                      Icons.delete,
-                                      size: 16,
-                                      color: Colors.grey.shade300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 },

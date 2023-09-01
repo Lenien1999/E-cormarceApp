@@ -1,3 +1,4 @@
+import 'package:ecormanceapp/model/product.dart';
 import 'package:ecormanceapp/pages/productpage.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int badgeCount = 0;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
